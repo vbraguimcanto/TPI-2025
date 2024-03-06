@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify, send_file
 import qrcode
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
 
 @app.route('/')
 def index():
