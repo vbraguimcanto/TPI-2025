@@ -9,7 +9,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', backref='author', lazy=True, cascade='all,delete')
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +36,17 @@ def create_post():
         return jsonify({"message": "Post created successfully"}), 201
     else:
         return jsonify({"message": "User not found"}), 404
+    
+@app.route('/user/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "User deleted successfully"}), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+
 
 @app.route('/users', methods=['GET'])
 def get_users():
