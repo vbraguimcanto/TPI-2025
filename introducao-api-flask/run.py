@@ -3,11 +3,11 @@ import qrcode
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/victor')
 def index():
     return 'Bem-vindo à sua API simples com Flask!'
 
-@app.route('/api/exemplo', methods=['GET'])
+@app.route('/api/exemplo', methods=['GET','POST'])
 def exemplo():
     dados = {'mensagem': 'Resposta de exemplo da sua API'}
     return jsonify(dados), 200, {'Content-Type': 'application/json; charset=utf-8'}
