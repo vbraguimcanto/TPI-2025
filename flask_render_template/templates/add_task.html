@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Crie uma nova task</h2>
+    <form method="POST" action="{{ url_for('add_task') }}">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" required>
+        <button type="submit">Add Task</button>
+    </form>
+{% endblock %}
