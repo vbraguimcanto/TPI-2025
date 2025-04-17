@@ -4,11 +4,16 @@ import websockets
 async def hello():
     uri = "ws://localhost:8765"
     async with websockets.connect(uri) as websocket:
-        msg = "Olá, servidor!"
-        await websocket.send(msg)
-        print(f"Enviado: {msg}")
+        while True:
+            msg = input("Digite a mensagem para o servidor (ou 'sair' para encerrar): ")
+            if msg.lower() == 'sair':
+                print("Encerrando conexão.")
+                break
 
-        resposta = await websocket.recv()
-        print(f"Recebido: {resposta}")
+            await websocket.send(msg)
+            print(f"Enviado: {msg}")
+
+            resposta = await websocket.recv()
+            print(f"Recebido: {resposta}")
 
 asyncio.run(hello())
